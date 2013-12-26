@@ -166,6 +166,10 @@ void epr_eeprom_reset() {
   printer_state.xMin = X_MIN_POS;
   printer_state.yMin = Y_MIN_POS;
   printer_state.zMin = Z_MIN_POS;
+  printer_state.delta_radius = DELTA_RADIUS;
+  printer_state.A0_offset = A0_OFFSET;
+  printer_state.AB_offset = AB_OFFSET;
+  printer_state.AC_offset = AC_OFFSET;
 #if ENABLE_BACKLASH_COMPENSATION
   printer_state.backlashX = X_BACKLASH;
   printer_state.backlashY = Y_BACKLASH;
@@ -375,6 +379,12 @@ void epr_data_to_eeprom(byte corrupted) {
   epr_set_float(EPR_Z_HOMING_FEEDRATE,homing_feedrate[2]);
   epr_set_float(EPR_MAX_JERK,printer_state.maxJerk);
   epr_set_float(EPR_MAX_ZJERK,printer_state.maxZJerk);
+//OPILIONES  
+  epr_set_float(EPR_DELTA_R,printer_state.delta_radius);
+  epr_set_float(EPR_A0_OFFSET,printer_state.A0_offset);
+  epr_set_float(EPR_AB_OFFSET,printer_state.AB_offset);
+  epr_set_float(EPR_AC_OFFSET,printer_state.AC_offset);  
+  
 #ifdef RAMP_ACCELERATION
   epr_set_float(EPR_X_MAX_ACCEL,max_acceleration_units_per_sq_second[0]);
   epr_set_float(EPR_Y_MAX_ACCEL,max_acceleration_units_per_sq_second[1]);
@@ -488,6 +498,12 @@ void epr_eeprom_to_data() {
   max_inactive_time = epr_get_long(EPR_MAX_INACTIVE_TIME);
   stepper_inactive_time = epr_get_long(EPR_STEPPER_INACTIVE_TIME);
 //#define EPR_ACCELERATION_TYPE 1
+  //OPILIONES 
+  printer_state.delta_radius = epr_get_float(EPR_DELTA_R);
+  printer_state.A0_offset = epr_get_float(EPR_A0_OFFSET);
+  printer_state.AB_offset = epr_get_float(EPR_AB_OFFSET);
+  printer_state.AC_offset = epr_get_float(EPR_AC_OFFSET);
+  
   axis_steps_per_unit[0] = epr_get_float(EPR_XAXIS_STEPS_PER_MM);
   axis_steps_per_unit[1] = epr_get_float(EPR_YAXIS_STEPS_PER_MM);
   axis_steps_per_unit[2] = epr_get_float(EPR_ZAXIS_STEPS_PER_MM);
@@ -499,6 +515,7 @@ void epr_eeprom_to_data() {
   homing_feedrate[2] = epr_get_float(EPR_Z_HOMING_FEEDRATE);
   printer_state.maxJerk = epr_get_float(EPR_MAX_JERK);
   printer_state.maxZJerk = epr_get_float(EPR_MAX_ZJERK);
+
 #ifdef RAMP_ACCELERATION
   max_acceleration_units_per_sq_second[0] = epr_get_float(EPR_X_MAX_ACCEL);
   max_acceleration_units_per_sq_second[1] = epr_get_float(EPR_Y_MAX_ACCEL);
@@ -531,6 +548,11 @@ void epr_eeprom_to_data() {
   printer_state.xLength = epr_get_float(EPR_X_LENGTH);
   printer_state.yLength = epr_get_float(EPR_Y_LENGTH);
   printer_state.zLength = epr_get_float(EPR_Z_LENGTH);
+  //OPILIONES  
+//  printer_state.delta_radius = epr_get_float(EPR_DELTA_R);
+//  printer_state.A0_offset = epr_get_float(EPR_A0_OFFSET);
+//  printer_state.AB_offset = epr_get_float(EPR_AB_OFFSET);
+//  printer_state.AC_offset = epr_get_float(EPR_AC_OFFSET);  
 #if ENABLE_BACKLASH_COMPENSATION
   printer_state.backlashX = epr_get_float(EPR_BACKLASH_X);
   printer_state.backlashY = epr_get_float(EPR_BACKLASH_Y);
@@ -634,7 +656,12 @@ void epr_output_settings() {
   epr_out_long(EPR_PRINTING_TIME,PSTR("Printer active [s]"));
   epr_out_long(EPR_MAX_INACTIVE_TIME,PSTR("Max. inactive time [ms,0=off]"));
   epr_out_long(EPR_STEPPER_INACTIVE_TIME,PSTR("Stop stepper after inactivity [ms,0=off]"));
-//#define EPR_ACCELERATION_TYPE 1
+  //OPILIONES
+  epr_out_float(EPR_DELTA_R,PSTR("Delta Radius [mm]"));
+  epr_out_float(EPR_A0_OFFSET,PSTR("A0 Offset [mm]"));
+  epr_out_float(EPR_AB_OFFSET,PSTR("AB Offset [mm]"));
+  epr_out_float(EPR_AC_OFFSET,PSTR("AC Offset [mm]"));
+//#define EPR_ACCELERATION_TYPE 1  
   epr_out_float(EPR_XAXIS_STEPS_PER_MM,PSTR("X-axis steps per mm"));
   epr_out_float(EPR_YAXIS_STEPS_PER_MM,PSTR("Y-axis steps per mm"));
   epr_out_float(EPR_ZAXIS_STEPS_PER_MM,PSTR("Z-axis steps per mm"));
@@ -652,6 +679,7 @@ void epr_output_settings() {
   epr_out_float(EPR_X_LENGTH,PSTR("X max length [mm]"));
   epr_out_float(EPR_Y_LENGTH,PSTR("Y max length [mm]"));
   epr_out_float(EPR_Z_LENGTH,PSTR("Z max length [mm]"));
+
 #if ENABLE_BACKLASH_COMPENSATION
   epr_out_float(EPR_BACKLASH_X,PSTR("X backlash [mm]"));
   epr_out_float(EPR_BACKLASH_Y,PSTR("Y backlash [mm]"));

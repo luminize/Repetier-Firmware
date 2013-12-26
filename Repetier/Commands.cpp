@@ -134,7 +134,14 @@ void home_axis(bool xaxis,bool yaxis,bool zaxis) {
       printer_state.currentPositionSteps[2] = printer_state.zMaxSteps;
       calculate_delta(printer_state.currentPositionSteps, printer_state.currentDeltaPositionSteps);
       printer_state.maxDeltaPositionSteps = printer_state.currentDeltaPositionSteps[0];
-    } else {
+    
+      printer_state.currentDeltaPositionSteps[0] = printer_state.currentDeltaPositionSteps[0] - printer_state.A0_offset*AXIS_STEPS_PER_MM;
+      printer_state.currentDeltaPositionSteps[1] = printer_state.currentDeltaPositionSteps[1] - printer_state.A0_offset*AXIS_STEPS_PER_MM - printer_state.AB_offset*AXIS_STEPS_PER_MM;
+      printer_state.currentDeltaPositionSteps[2] = printer_state.currentDeltaPositionSteps[2] - printer_state.A0_offset*AXIS_STEPS_PER_MM - printer_state.AC_offset*AXIS_STEPS_PER_MM;
+
+  
+    }
+    else {
       if (xaxis) printer_state.destinationSteps[0] = 0;
       if (yaxis) printer_state.destinationSteps[1] = 0;
       split_delta_move(true,false,false);

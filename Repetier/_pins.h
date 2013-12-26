@@ -1211,9 +1211,9 @@ STEPPER_CURRENT_CONTROL
  #define Y_MIN_PIN          41
  #define Y_MAX_PIN          38   //15
  
- #define Z_STEP_PIN         29 //56 // A2
- #define Z_DIR_PIN          39 //60 // A6
- #define Z_ENABLE_PIN       28 //55 // A1
+ #define Z_STEP_PIN         56 // A2
+ #define Z_DIR_PIN          60 // A6
+ #define Z_ENABLE_PIN       55 // A1
  #define Z_MIN_PIN          18
  #define Z_MAX_PIN          19
  
@@ -1221,9 +1221,9 @@ STEPPER_CURRENT_CONTROL
  #define E0_DIR_PIN          36
  #define E0_ENABLE_PIN       34
  
- #define E1_STEP_PIN         56 //29
- #define E1_DIR_PIN          60 //39
- #define E1_ENABLE_PIN       55 //28
+ #define E1_STEP_PIN         29
+ #define E1_DIR_PIN          39
+ #define E1_ENABLE_PIN       28
  
  #define E2_STEP_PIN         23
  #define E2_DIR_PIN          24

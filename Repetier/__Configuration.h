@@ -88,9 +88,6 @@ Cases 1 and 2 cover all needed xy H gantry systems. If you get results mirrored 
 the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 */
 #define DRIVE_SYSTEM 3
-#define A0_OFFSET 0.0
-#define AB_OFFSET 0.0
-#define AC_OFFSET 0.0
 
 // ##########################################################################################
 // ##                               Calibration                                            ##
@@ -105,7 +102,14 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 
     /** \brief Delta drive type: 0 - belts and pulleys, 1 - filament drive */
     #define DELTA_DRIVE_TYPE 0
-
+    
+    #define THREE_POINT_HOME 0 //1
+    #define PROBE_OFFSET 20
+    #define A0_OFFSET 0.0
+    #define AB_OFFSET -1.0
+    #define AC_OFFSET -1.0
+    #define HOMING_HEIGHT 0
+    
     #if DELTA_DRIVE_TYPE == 0
       /** \brief Pitch in mm of drive belt. GT2 = 2mm */
       #define BELT_PITCH 2.5
@@ -157,13 +161,11 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 // ##                           Extruder configuration                                     ##
 // ##########################################################################################
 
-// for each extruder, fan will stay on until extruder temperature is below this value 
-#define EXTRUDER_FAN_COOL_TEMP 50
 
 #define EXT0_X_OFFSET 0
 #define EXT0_Y_OFFSET 0
 // for skeinforge 40 and later, steps to pull the plasic 1 mm inside the extruder, not out.  Overridden if EEPROM activated.
-#define EXT0_STEPS_PER_MM 413 //385
+#define EXT0_STEPS_PER_MM 745 //668 //800 //413 //385
 // What type of sensor is used?
 // 1 is 100k thermistor (Epcos B57560G0107F000 - RepRap-Fab.org and many other)
 // 2 is 200k thermistor
@@ -198,13 +200,13 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 // length of filament pulled inside the heater. For repsnap or older
 // skeinforge use hiher values.
 //  Overridden if EEPROM activated.
-#define EXT0_MAX_FEEDRATE 30
+#define EXT0_MAX_FEEDRATE 20
 // Feedrate from halted extruder in mm/s
 //  Overridden if EEPROM activated.
-#define EXT0_MAX_START_FEEDRATE 10
+#define EXT0_MAX_START_FEEDRATE 8
 // Acceleration in mm/s^2
 //  Overridden if EEPROM activated.
-#define EXT0_MAX_ACCELERATION 4000
+#define EXT0_MAX_ACCELERATION 750
 /** Type of heat manager for this extruder. 
 - 0 = Simply switch on/off if temperature is reached. Works always.
 - 1 = PID Temperature control. Is better but needs good PID values. Defaults are a good start for most extruder.
@@ -292,7 +294,7 @@ The codes are only executed for multiple extruder when changing the extruder. */
 // 99 Generic thermistor table 3
 // 100 is AD595
 // 101 is MAX6675
-#define EXT1_TEMPSENSOR_TYPE 3
+#define EXT1_TEMPSENSOR_TYPE 1
 // Analog input pin for reading temperatures or pin enabling SS for MAX6675
 #define EXT1_TEMPSENSOR_PIN TEMP_2_PIN 
 // WHich pin enables the heater
@@ -520,7 +522,7 @@ Value is used for all generic tables created. */
 // set to 0 if you don't have a heated bed
 #define HEATED_BED_SENSOR_TYPE 1
 /** Analog pin of analog sensor to read temperature of heated bed.  */
-#define HEATED_BED_SENSOR_PIN TEMP_1_PIN
+#define HEATED_BED_SENSOR_PIN TEMP_2_PIN
 /** \brief Pin to enable heater for bed. */
 #define HEATED_BED_HEATER_PIN HEATER_1_PIN
 // How often the temperature of the heated bed is set (msec)
@@ -637,9 +639,9 @@ on this endstop.
 
 //// ENDSTOP SETTINGS:
 // Sets direction of endstops when homing; 1=MAX, -1=MIN
-#define X_HOME_DIR 1
-#define Y_HOME_DIR 1
-#define Z_HOME_DIR 1
+#define X_HOME_DIR 1 //-1
+#define Y_HOME_DIR 1 //-1
+#define Z_HOME_DIR 1 //-1
 
 // Delta robot radius endstop
 #define max_software_endstop_r true
@@ -650,9 +652,9 @@ on this endstop.
 #define min_software_endstop_z false
 
 //If true, axis won't move to coordinates greater than the defined lengths below.
-#define max_software_endstop_x true
-#define max_software_endstop_y true
-#define max_software_endstop_z true
+#define max_software_endstop_x false //true
+#define max_software_endstop_y false //true
+#define max_software_endstop_z false //true
 
 // If during homing the endstop is reached, ho many mm should the printer move back for the second try
 #define ENDSTOP_X_BACK_MOVE 5
@@ -661,28 +663,28 @@ on this endstop.
 
 // For higher precision you can reduce the speed for the second test on the endstop
 // during homing operation. The homing speed is divided by the value. 1 = same speed, 2 = half speed
-#define ENDSTOP_X_RETEST_REDUCTION_FACTOR 2
-#define ENDSTOP_Y_RETEST_REDUCTION_FACTOR 2
-#define ENDSTOP_Z_RETEST_REDUCTION_FACTOR 2
+#define ENDSTOP_X_RETEST_REDUCTION_FACTOR 4
+#define ENDSTOP_Y_RETEST_REDUCTION_FACTOR 4
+#define ENDSTOP_Z_RETEST_REDUCTION_FACTOR 4
 
 // When you have several endstops in one circuit you need to disable it after homing by moving a
 // small amount back. This is also the case with H-belt systems.
-#define ENDSTOP_X_BACK_ON_HOME 1
-#define ENDSTOP_Y_BACK_ON_HOME 14
-#define ENDSTOP_Z_BACK_ON_HOME 0
+#define ENDSTOP_X_BACK_ON_HOME 10
+#define ENDSTOP_Y_BACK_ON_HOME 10
+#define ENDSTOP_Z_BACK_ON_HOME 10
 
 // You can disable endstop checking for print moves. This is needed, if you get sometimes
 // false signals from your endstops. If your endstops don't give false signals, you
 // can set it on for safety.
-#define ALWAYS_CHECK_ENDSTOPS false
+#define ALWAYS_CHECK_ENDSTOPS true //false
 
 // maximum positions in mm - only fixed numbers!
 // For delta robot Z_MAX_LENGTH is maximum travel of the towers and should be set to the distance between the hotend
 // and the platform when the printer is at its home position.
 // If EEPROM is enabled these values will be overidden with the values in the EEPROM
-#define X_MAX_LENGTH 600 
-#define Y_MAX_LENGTH 600
-#define Z_MAX_LENGTH 600
+#define X_MAX_LENGTH 706.15
+#define Y_MAX_LENGTH 706.15
+#define Z_MAX_LENGTH 706.15
 
 // Coordinates for the minimum axis. Can also be negative if you want to have the bed start at 0 and the printer can go to the left side
 // of the bed. Maximum coordinate is given by adding the above X_MAX_LENGTH values.
@@ -714,19 +716,21 @@ on this endstop.
 
 /** \brief Horizontal offset of the universal joints on the end effector (moving platform).
 */
-#define END_EFFECTOR_HORIZONTAL_OFFSET 33
+#define END_EFFECTOR_HORIZONTAL_OFFSET 41.5
 
 /** \brief Horizontal offset of the universal joints on the vertical carriages.
 */
-#define CARRIAGE_HORIZONTAL_OFFSET 18
+#define CARRIAGE_HORIZONTAL_OFFSET 37.0
 
 /** \brief Printer radius in mm, measured from the center of the print area to the vertical smooth rod.
 */
-#define PRINTER_RADIUS 260
+#define PRINTER_RADIUS (346.4-2.2)
+// if ball joints on effector are further away from the center (closer to the guide) then
+// decrease total PRINTER_RADIUS
 
 /**  \brief Horizontal distance bridged by the diagonal push rod when the end effector is in the center. It is pretty close to 50% of the push rod length (250 mm).
 */
-#define DELTA_RADIUS (PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET)
+#define DELTA_RADIUS 267.30 //(PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET)
 
 /** \brief Enable counter to count steps for Z max calculations
 */
@@ -743,7 +747,7 @@ on this endstop.
     This helps cooling the Stepper motors between two print jobs. 
     Overridden if EEPROM activated.
 */
-#define STEPPER_INACTIVE_TIME 120L
+#define STEPPER_INACTIVE_TIME 0 //120L
 /** After x seconds of inactivity, the system will go down as far it can.
     It will at least disable all stepper motors and heaters. If the board has
     a power pin, it will be disabled, too. 
@@ -755,14 +759,14 @@ on this endstop.
     The axis order in all axis related arrays is X, Y, Z
      Overridden if EEPROM activated.
     */
-#define MAX_FEEDRATE_X 200
-#define MAX_FEEDRATE_Y 200
-#define MAX_FEEDRATE_Z 200
+#define MAX_FEEDRATE_X 5000
+#define MAX_FEEDRATE_Y 5000
+#define MAX_FEEDRATE_Z 5000
 
 /** Speed in mm/min for finding the home position.  Overridden if EEPROM activated. */
-#define HOMING_FEEDRATE_X 50
-#define HOMING_FEEDRATE_Y 50
-#define HOMING_FEEDRATE_Z 50
+#define HOMING_FEEDRATE_X 80
+#define HOMING_FEEDRATE_Y 80
+#define HOMING_FEEDRATE_Z 80
 
 /* If you have a backlash in both z-directions, you can use this. For most printer, the bed will be pushed down by it's
 own weight, so this is nearly never needed. */
@@ -809,14 +813,14 @@ If the interval at full speed is below this value, smoothing is disabled for tha
 /** \brief X, Y, Z max acceleration in mm/s^2 for printing moves or retracts. Make sure your printer can go that high! 
  Overridden if EEPROM activated.
 */
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 1500
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 1500
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 1500
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 700
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 700
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 700
 
 /** \brief X, Y, Z max acceleration in mm/s^2 for travel moves.  Overridden if EEPROM activated.*/
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 3000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 700
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 700
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 700
 
 /** \brief Maximum allowable jerk.
 
@@ -842,7 +846,7 @@ Corner can be printed with full speed of 50 mm/s
 Overridden if EEPROM activated.
 */
 #define MAX_JERK 20.0
-#define MAX_ZJERK 0.3
+#define MAX_ZJERK 10.0
 
 /** \brief Number of moves we can cache in advance.
 
@@ -981,7 +985,7 @@ the power will be turned on without the need to call M80 if initially started.
 If you use an ATX power supply you need the power pin to work non inverting. For some speacial
 boards you might need to make it inverting.
 */
-#define POWER_INVERTING false
+#define POWER_INVERTING true
 /** What shall the printer do, when it receives an M112 emergency stop signal?
  0 = Disable heaters/motors, wait for ever until someone presses reset.
  1 = restart by resetting the AVR controller. The USB connection will not reset if managed by a different chip!
@@ -1023,7 +1027,7 @@ matches, the stored values are used to overwrite the settings.
 IMPORTANT: With mode <>0 some changes in configuration.h are not set any more, as they are 
            taken from the EEPROM.
 */
-#define EEPROM_MODE 2
+#define EEPROM_MODE 3
 /** Set to false to disable SD support: */
 #ifndef SDSUPPORT  // Some boards have sd support on board. These define the values already in pins.h
 #define SDSUPPORT false

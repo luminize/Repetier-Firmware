@@ -662,6 +662,10 @@ typedef struct {
   long currentPositionSteps[4];     ///< Position in steps from origin.
   long destinationSteps[4];         ///< Target position in steps.
 #if DRIVE_SYSTEM==3
+  float delta_radius;
+  float A0_offset;
+  float AB_offset;
+  float AC_offset;
 #ifdef STEP_COUNTER
   long countZSteps;					///< Count of steps from last position reset
 #endif

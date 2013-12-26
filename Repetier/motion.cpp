@@ -969,6 +969,7 @@ inline void set_delta_position(long xaxis, long yaxis, long zaxis) {
   @param deltaPosSteps Result array with tower coordinates.
   @returns 1 if cartesian coordinates have a valid delta tower position 0 if not.
 */
+/*
 byte calculate_delta(long cartesianPosSteps[], long deltaPosSteps[]) {
 	long temp;
 	long opt = DELTA_DIAGONAL_ROD_STEPS_SQUARED - sq(DELTA_TOWER1_Y_STEPS - cartesianPosSteps[Y_AXIS]);
@@ -987,6 +988,31 @@ byte calculate_delta(long cartesianPosSteps[], long deltaPosSteps[]) {
 		 - sq(DELTA_TOWER3_X_STEPS - cartesianPosSteps[X_AXIS])
 		 - sq(DELTA_TOWER3_Y_STEPS - cartesianPosSteps[Y_AXIS])) >= 0)
 		deltaPosSteps[Z_AXIS] = sqrt(temp) + cartesianPosSteps[Z_AXIS];
+	else
+		return 0;
+
+	return 1;
+}
+*/
+
+byte calculate_delta(long cartesianPosSteps[], long deltaPosSteps[]) {
+	long temp;
+	long opt = DELTA_DIAGONAL_ROD_STEPS_SQUARED - sq(-COS_60*AXIS_STEPS_PER_MM*printer_state.delta_radius - cartesianPosSteps[Y_AXIS]);
+
+	if ((temp = opt - sq(-SIN_60*AXIS_STEPS_PER_MM*printer_state.delta_radius - cartesianPosSteps[X_AXIS])) >= 0)
+		deltaPosSteps[X_AXIS] = sqrt(temp) + cartesianPosSteps[Z_AXIS] + printer_state.A0_offset*AXIS_STEPS_PER_MM;
+	else
+		return 0;
+
+	if ((temp = opt - sq(SIN_60*AXIS_STEPS_PER_MM*printer_state.delta_radius - cartesianPosSteps[X_AXIS])) >= 0)
+		deltaPosSteps[Y_AXIS] = sqrt(temp) + cartesianPosSteps[Z_AXIS] + printer_state.A0_offset*AXIS_STEPS_PER_MM + printer_state.AB_offset*AXIS_STEPS_PER_MM;
+	else
+		return 0;
+
+	if ((temp = DELTA_DIAGONAL_ROD_STEPS_SQUARED
+		 - sq(0.0 - cartesianPosSteps[X_AXIS])
+		 - sq(AXIS_STEPS_PER_MM*printer_state.delta_radius - cartesianPosSteps[Y_AXIS])) >= 0)
+		deltaPosSteps[Z_AXIS] = sqrt(temp) + cartesianPosSteps[Z_AXIS] + printer_state.A0_offset*AXIS_STEPS_PER_MM + printer_state.AC_offset*AXIS_STEPS_PER_MM;
 	else
 		return 0;
 
