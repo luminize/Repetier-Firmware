@@ -167,6 +167,7 @@ void epr_eeprom_reset() {
   printer_state.yMin = Y_MIN_POS;
   printer_state.zMin = Z_MIN_POS;
   printer_state.delta_radius = DELTA_RADIUS;
+  printer_state.rod_length = DELTA_DIAGONAL_ROD;
   printer_state.A0_offset = A0_OFFSET;
   printer_state.AB_offset = AB_OFFSET;
   printer_state.AC_offset = AC_OFFSET;
@@ -381,6 +382,7 @@ void epr_data_to_eeprom(byte corrupted) {
   epr_set_float(EPR_MAX_ZJERK,printer_state.maxZJerk);
 //OPILIONES  
   epr_set_float(EPR_DELTA_R,printer_state.delta_radius);
+  epr_set_float(EPR_ROD_LENGTH,printer_state.rod_length);
   epr_set_float(EPR_A0_OFFSET,printer_state.A0_offset);
   epr_set_float(EPR_AB_OFFSET,printer_state.AB_offset);
   epr_set_float(EPR_AC_OFFSET,printer_state.AC_offset);  
@@ -500,6 +502,7 @@ void epr_eeprom_to_data() {
 //#define EPR_ACCELERATION_TYPE 1
   //OPILIONES 
   printer_state.delta_radius = epr_get_float(EPR_DELTA_R);
+  printer_state.rod_length = epr_get_float(DELTA_DIAGONAL_ROD);
   printer_state.A0_offset = epr_get_float(EPR_A0_OFFSET);
   printer_state.AB_offset = epr_get_float(EPR_AB_OFFSET);
   printer_state.AC_offset = epr_get_float(EPR_AC_OFFSET);
@@ -658,6 +661,7 @@ void epr_output_settings() {
   epr_out_long(EPR_STEPPER_INACTIVE_TIME,PSTR("Stop stepper after inactivity [ms,0=off]"));
   //OPILIONES
   epr_out_float(EPR_DELTA_R,PSTR("Delta Radius [mm]"));
+  epr_out_float(EPR_ROD_LENGTH,PSTR("Rod Length [mm]"));
   epr_out_float(EPR_A0_OFFSET,PSTR("A0 Offset [mm]"));
   epr_out_float(EPR_AB_OFFSET,PSTR("AB Offset [mm]"));
   epr_out_float(EPR_AC_OFFSET,PSTR("AC Offset [mm]"));

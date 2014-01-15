@@ -666,6 +666,7 @@ typedef struct {
   float A0_offset;
   float AB_offset;
   float AC_offset;
+  float rod_length;
 #ifdef STEP_COUNTER
   long countZSteps;					///< Count of steps from last position reset
 #endif

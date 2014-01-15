@@ -508,6 +508,7 @@ void setup()
 #if DRIVE_SYSTEM==3
   calculate_delta(printer_state.currentPositionSteps, printer_state.currentDeltaPositionSteps);
   printer_state.delta_radius = DELTA_RADIUS;
+  printer_state.rod_length = DELTA_DIAGONAL_ROD;
   printer_state.A0_offset = A0_OFFSET;
   printer_state.AB_offset = AB_OFFSET;
   printer_state.AC_offset = AC_OFFSET;

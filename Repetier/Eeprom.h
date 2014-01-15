@@ -80,6 +80,7 @@ have problems with other modules using the eeprom */
 #define EPR_A0_OFFSET             173
 #define EPR_AB_OFFSET             177
 #define EPR_AC_OFFSET             181
+#define EPR_ROD_LENGTH            185
 
 #define EEPROM_EXTRUDER_OFFSET 200
 // bytes per extruder needed, leave some space for future development
