@@ -24,7 +24,7 @@
 
 #include <avr/io.h>
 
-#define REPETIER_VERSION "0.83"
+#define REPETIER_VERSION "0.83 on Opiliones"
 
 // ##########################################################################################
 // ##                                  Debug configuration                                 ##
