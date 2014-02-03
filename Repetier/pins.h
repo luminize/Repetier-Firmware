@@ -1337,10 +1337,10 @@ STEPPER_CURRENT_CONTROL
  #define KILL_PIN -1
  
 
-#define HEATER_0_PIN       8
-#define HEATER_1_PIN       9
-#define HEATER_2_PIN       10
-#define HEATER_3_PIN       2
+#define HEATER_0_PIN       2  //8
+#define HEATER_1_PIN       10 //9
+#define HEATER_2_PIN       9  //10
+#define HEATER_3_PIN       8  //2
  
 
  
