@@ -502,7 +502,7 @@ void epr_eeprom_to_data() {
 //#define EPR_ACCELERATION_TYPE 1
   //OPILIONES 
   printer_state.delta_radius = epr_get_float(EPR_DELTA_R);
-  printer_state.rod_length = epr_get_float(DELTA_DIAGONAL_ROD);
+  printer_state.rod_length = epr_get_float(EPR_ROD_LENGTH);
   printer_state.A0_offset = epr_get_float(EPR_A0_OFFSET);
   printer_state.AB_offset = epr_get_float(EPR_AB_OFFSET);
   printer_state.AC_offset = epr_get_float(EPR_AC_OFFSET);
