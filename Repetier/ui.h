@@ -195,7 +195,7 @@
 #include "Configuration.h"
 #include <avr/pgmspace.h>
 #include "fastio.h"
-
+ 
 typedef struct {
   const char *text; // Menu text 
   unsigned char menuType; // 0 = Info, 1 = Headline, 2 = submenu ref, 3 = direct action command, 4 = modify action command
@@ -337,6 +337,26 @@ extern unsigned char i2c_read(unsigned char ack);
       else if(c4>=0 && !READ(c4)) r+=3;\
       if(r<16) {action = pgm_read_word(&(matrixActions[r]));}\
     }if(r1>=0)WRITE(r1,LOW);if(r2>=0)WRITE(r2,LOW);if(r3>=0)WRITE(r3,LOW);if(r4>=0)WRITE(r4,LOW);}
+
+//************************** m *****************************************************************
+#define UI_KEYS_INIT_HCT165(ck,ld,si) if(ck>=0){SET_OUTPUT(ck);WRITE(ck,LOW);}\
+																			if(ld>=0){SET_OUTPUT(ld);WRITE(ld,HIGH);}\
+																			if(si>=0){SET_INPUT(si);}
+
+#define UI_KEYS_HCT165(ck,ld,si)\
+ {byte i;\
+	WRITE(ld,LOW);asm volatile ("nop\nnop\nnop\nnop\nnop");WRITE(ld,HIGH);\ 
+	for (i=0; i<8; i++){\
+		if (READ(si)==0) break;\
+		WRITE(ck,HIGH);asm volatile ("nop\nnop\nnop\nnop\nnop");WRITE(ck,LOW);\ 
+	}\ 
+	if (i<8) {action = pgm_read_word(&(hct165Actions[i]));}\
+	}\
+	
+//************************ end m ***************************************************************		
+		
+		
+		
 // I2C keymask tests
 #define UI_KEYS_I2C_CLICKENCODER_LOW(pinA,pinB)  uid.encoderLast = (uid.encoderLast << 2) & 0x0F;if (!(keymask & pinA)) uid.encoderLast |=2;if (!(keymask & pinB)) uid.encoderLast |=1; uid.encoderPos += pgm_read_byte(&encoder_table[uid.encoderLast]);
 #define UI_KEYS_I2C_CLICKENCODER_LOW_REV(pinA,pinB)  uid.encoderLast = (uid.encoderLast << 2) & 0x0F;if (!(keymask & pinA)) uid.encoderLast |=2;if (!(keymask & pinB)) uid.encoderLast |=1; uid.encoderPos -= pgm_read_byte(&encoder_table[uid.encoderLast]);
@@ -449,17 +469,17 @@ extern UIDisplay uid;
 
 
 #if FEATURE_CONTROLLER==1
-#include "uiconfig.h"
+	#include "uiconfig.h"
 #endif
 #if FEATURE_CONTROLLER==0 // No controller at all
-#define UI_HAS_KEYS 0
-#define UI_DISPLAY_TYPE 0
-#ifdef UI_MAIN
-void ui_init_keys() {}
-void ui_check_keys(int &action) {}
-inline void ui_check_slow_encoder() {}
-void ui_check_slow_keys(int &action) {}
-#endif
+	#define UI_HAS_KEYS 0
+	#define UI_DISPLAY_TYPE 0
+	#ifdef UI_MAIN
+		void ui_init_keys() {}
+		void ui_check_keys(int &action) {}
+		inline void ui_check_slow_encoder() {}
+		void ui_check_slow_keys(int &action) {}
+	#endif
 #endif
 #if FEATURE_CONTROLLER==2 // reprapdiscount smartcontroller
 #define UI_HAS_KEYS 1

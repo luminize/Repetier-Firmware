@@ -1331,8 +1331,8 @@ STEPPER_CURRENT_CONTROL
  #define SDSS 53
  #define LED_PIN 13
  
- #define FAN_PIN 7
- #define FAN2_PIN 6
+ #define FAN_PIN 6
+ #define FAN2_PIN 7
  #define PS_ON_PIN 12
  #define KILL_PIN -1
  
@@ -1384,7 +1384,8 @@ STEPPER_CURRENT_CONTROL
  //buttons are directly attached using keypad
  #define BTN_EN1 44
  #define BTN_EN2 45
- #define BTN_ENC 33 //the click
+ //#define BTN_ENC 33 //the click
+ #define BTN_ENTER 33
  
  #define BLEN_C 2
  #define BLEN_B 1
@@ -1401,6 +1402,11 @@ STEPPER_CURRENT_CONTROL
 #define E0_PINS E0_STEP_PIN,E0_DIR_PIN,E0_ENABLE_PIN,
 #define E1_PINS E1_STEP_PIN,E1_DIR_PIN,E1_ENABLE_PIN,
 #define E2_PINS E2_STEP_PIN,E2_DIR_PIN,E2_ENABLE_PIN,
+
+#define SS_PIN 53    // B0
+#define MOSI_PIN 51  // B2
+#define MISO_PIN 50  // B3
+#define SCK_PIN 52   // B1
 
 #endif
 

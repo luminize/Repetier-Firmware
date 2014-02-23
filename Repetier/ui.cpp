@@ -710,6 +710,7 @@ UIDisplay::UIDisplay() {
 #endif  
   UI_STATUS(UI_TEXT_PRINTER_READY);
 }
+
 void UIDisplay::initialize() {
 #if UI_DISPLAY_TYPE>0
   initializeLCD();
@@ -721,7 +722,8 @@ void UIDisplay::initialize() {
     initializeLCD();
 #endif
   uid.printRowP(0,versionString);
-  uid.printRowP(1,versionString2);
+  uid.printRowP(2,versionString2);
+
 #endif
 #if BEEPER_TYPE==2 || defined(UI_HAS_I2C_KEYS)
   // Make sure the beeper is off
@@ -730,6 +732,7 @@ void UIDisplay::initialize() {
   i2c_stop();
 #endif
 }
+
 #if UI_DISPLAY_TYPE==1 || UI_DISPLAY_TYPE==2 || UI_DISPLAY_TYPE==3
 void UIDisplay::createChar(byte location,const byte PROGMEM charmap[]) {
   location &= 0x7; // we only have 8 locations 0-7
@@ -738,6 +741,7 @@ void UIDisplay::createChar(byte location,const byte PROGMEM charmap[]) {
     lcdPutChar(pgm_read_byte(&(charmap[i])));
   }
 }
+
 void UIDisplay::printRow(byte r,char *txt) {    
  byte col=0;
  // Set row

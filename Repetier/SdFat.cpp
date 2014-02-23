@@ -18,6 +18,7 @@
  * <http://www.gnu.org/licenses/>.
  */
  #include "Reptier.h"
+ #include "SdFat.h"
 #if SDSUPPORT
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
