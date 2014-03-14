@@ -89,8 +89,8 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 */
 #define DRIVE_SYSTEM 3
 #define A0_OFFSET 0.0
-#define AB_OFFSET 1.07
-#define AC_OFFSET 1.34
+#define AB_OFFSET 0.0
+#define AC_OFFSET 0.0
 
 // ##########################################################################################
 // ##                               Calibration                                            ##
@@ -705,7 +705,7 @@ on this endstop.
 #if DRIVE_SYSTEM==3
 /** \brief Delta rod length
 */
-#define DELTA_DIAGONAL_ROD 507.25 // mm
+#define DELTA_DIAGONAL_ROD 525.0 // mm
 
 /** \brief Number of segments to generate for delta conversions per second of move
 */
@@ -726,7 +726,7 @@ on this endstop.
 
 /**  \brief Horizontal distance bridged by the diagonal push rod when the end effector is in the center. It is pretty close to 50% of the push rod length (250 mm).
 */
-#define DELTA_RADIUS 247.74 //DELTA_RADIUS (PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET)
+#define DELTA_RADIUS 242 //247.74 //DELTA_RADIUS (PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET)
 
 /** \brief Enable counter to count steps for Z max calculations
 */
