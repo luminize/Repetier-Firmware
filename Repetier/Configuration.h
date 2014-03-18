@@ -89,8 +89,8 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 */
 #define DRIVE_SYSTEM 3
 #define A0_OFFSET 0.0
-#define AB_OFFSET 0.0
-#define AC_OFFSET 0.0
+#define AB_OFFSET 0.3
+#define AC_OFFSET 0.25
 
 // ##########################################################################################
 // ##                               Calibration                                            ##
@@ -680,9 +680,9 @@ on this endstop.
 // For delta robot Z_MAX_LENGTH is maximum travel of the towers and should be set to the distance between the hotend
 // and the platform when the printer is at its home position.
 // If EEPROM is enabled these values will be overidden with the values in the EEPROM
-#define X_MAX_LENGTH 766.25 
-#define Y_MAX_LENGTH 766.25
-#define Z_MAX_LENGTH 766.25
+#define X_MAX_LENGTH 427.5
+#define Y_MAX_LENGTH 427.5
+#define Z_MAX_LENGTH 427.5
 
 // Coordinates for the minimum axis. Can also be negative if you want to have the bed start at 0 and the printer can go to the left side
 // of the bed. Maximum coordinate is given by adding the above X_MAX_LENGTH values.
@@ -705,7 +705,7 @@ on this endstop.
 #if DRIVE_SYSTEM==3
 /** \brief Delta rod length
 */
-#define DELTA_DIAGONAL_ROD 325 //507.25 // mm
+#define DELTA_DIAGONAL_ROD 326.37 //326.14 //323.75 //325.00 //325.7982 //324.202 //325 //507.25 // mm
 
 /** \brief Number of segments to generate for delta conversions per second of move
 */
@@ -726,7 +726,7 @@ on this endstop.
 
 /**  \brief Horizontal distance bridged by the diagonal push rod when the end effector is in the center. It is pretty close to 50% of the push rod length (250 mm).
 */
-#define DELTA_RADIUS 247.65 //DELTA_RADIUS (PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET)
+#define DELTA_RADIUS 158.2 //DELTA_RADIUS (PRINTER_RADIUS-END_EFFECTOR_HORIZONTAL_OFFSET-CARRIAGE_HORIZONTAL_OFFSET)
 
 /** \brief Enable counter to count steps for Z max calculations
 */
