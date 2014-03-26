@@ -705,7 +705,7 @@ on this endstop.
 #if DRIVE_SYSTEM==3
 /** \brief Delta rod length
 */
-#define DELTA_DIAGONAL_ROD 326.37 //326.14 //323.75 //325.00 //325.7982 //324.202 //325 //507.25 // mm
+#define DELTA_DIAGONAL_ROD 325.00 // mm
 
 /** \brief Number of segments to generate for delta conversions per second of move
 */
@@ -1026,7 +1026,7 @@ IMPORTANT: With mode <>0 some changes in configuration.h are not set any more, a
 #define EEPROM_MODE 1
 /** Set to false to disable SD support: */
 #ifndef SDSUPPORT  // Some boards have sd support on board. These define the values already in pins.h
-#define SDSUPPORT true
+#define SDSUPPORT false
 /** If set to false all files with longer names then 8.3 or having a tilde in the name will be hidden */
 #define SD_ALLOW_LONG_NAMES false
 // Uncomment to enable or changed card detection pin. With card detection the card is mounted on insertion.
@@ -1065,7 +1065,7 @@ The following settings override uiconfig.h!
 4 = Foltyn 3DMaster with display attached
 5 = ViKi LCD - Check pin configuration in ui.h for feature controller 5!!! sd card disabled by default!
 */
-#define FEATURE_CONTROLLER 1
+#define FEATURE_CONTROLLER 0
 
 /**
 Select the language to use.
